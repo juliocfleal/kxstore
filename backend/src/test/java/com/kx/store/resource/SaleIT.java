@@ -1,6 +1,7 @@
 package com.kx.store.resource;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kx.store.DTO.SaleDTO;
 import com.kx.store.resources.SaleResource;
 
 @Transactional
@@ -23,11 +25,8 @@ import com.kx.store.resources.SaleResource;
 public class SaleIT {
 	
 	private Long validId;
-	private Long invalidId;
-	private Long numberSales;
-	
-	@Autowired
-	private SaleResource resource;
+
+
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -37,9 +36,7 @@ public class SaleIT {
 	
 	@BeforeEach
 	void setUp() throws Exception{
-		validId = 1L;
-		invalidId = 1000L;
-		numberSales = 18L;
+		validId = 3L;
 	}
 	
 	@Test
@@ -51,9 +48,41 @@ public class SaleIT {
 		result.andExpect(jsonPath("$[0].client").value("10"));
 		result.andExpect(jsonPath("$[0].total").value("100.0"));
 		result.andExpect(jsonPath("$[0].id").value("1"));
-		result.andExpect(jsonPath("$[1].client").value("2"));
+		result.andExpect(jsonPath("$[1].client").value("3"));
 		result.andExpect(jsonPath("$[1].total").value("500.0"));
 		result.andExpect(jsonPath("$[1].id").value("2"));
+	}
+	
+	@Test
+	public void getSaleShouldReturnSaleWhenIdIsValid() throws Exception{
+		ResultActions result = mockMvc.perform(get("/sales/{id}", validId).accept(MediaType.APPLICATION_JSON));
+	
+		result.andExpectAll(status().isOk());
+		result.andExpect(jsonPath("$").exists());
+		result.andExpect(jsonPath("$.client").value("6"));
+		result.andExpect(jsonPath("$.total").value("10.0"));
+		result.andExpect(jsonPath("$.id").value("3"));
+
+	}
+	
+	@Test
+	public void updateShouldInsertSale() throws Exception{
+		SaleDTO saletDTO = new SaleDTO();
+		saletDTO.setClient(1L);
+		saletDTO.setTotal(999.99);
+		String jsonBody = objectMapper.writeValueAsString(saletDTO);
+		Long expectedClient = saletDTO.getClient();
+		Double expectedTotal = saletDTO.getTotal();
+		
+		ResultActions result = mockMvc.perform(post("/sales")
+				.content(jsonBody)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON));
+		
+		result.andExpect(status().isCreated());
+		result.andExpect(jsonPath("$.client").value(expectedClient));
+		result.andExpect(jsonPath("$.total").value(expectedTotal));
+		
 	}
 	
 }
