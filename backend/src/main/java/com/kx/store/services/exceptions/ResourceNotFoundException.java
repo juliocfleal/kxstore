@@ -1,4 +1,4 @@
-package com.julioleal.Ds.catalog.services.exceptions;
+package com.kx.store.services.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
 	private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package com.julioleal.Ds.catalog.resources.exceptions;
+package com.kx.store.resources.exceptions;
 
 import java.time.Instant;
 

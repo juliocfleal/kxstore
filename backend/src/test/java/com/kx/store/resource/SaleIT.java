@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kx.store.DTO.SaleDTO;
-import com.kx.store.resources.SaleResource;
 
 @Transactional
 @SpringBootTest
@@ -25,6 +24,7 @@ import com.kx.store.resources.SaleResource;
 public class SaleIT {
 	
 	private Long validId;
+	private Long invalidId;
 
 
 	
@@ -37,6 +37,7 @@ public class SaleIT {
 	@BeforeEach
 	void setUp() throws Exception{
 		validId = 3L;
+		invalidId = 1000L;
 	}
 	
 	@Test
@@ -65,8 +66,17 @@ public class SaleIT {
 
 	}
 	
+	
 	@Test
-	public void updateShouldInsertSale() throws Exception{
+	public void getSaleShouldReturnExceptionWhenIdIsInvalid() throws Exception{
+		ResultActions result = mockMvc.perform(get("/sales/{id}", invalidId).accept(MediaType.APPLICATION_JSON));
+	
+		result.andExpect(status().isNotFound());
+
+	}
+	
+	@Test
+	public void InsertSaleShouldInserNewSale() throws Exception{
 		SaleDTO saletDTO = new SaleDTO();
 		saletDTO.setClient(1L);
 		saletDTO.setTotal(999.99);
@@ -84,5 +94,7 @@ public class SaleIT {
 		result.andExpect(jsonPath("$.total").value(expectedTotal));
 		
 	}
+	
+	
 	
 }

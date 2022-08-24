@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.julioleal.Ds.catalog.services.exceptions.ResourceNotFoundException;
 import com.kx.store.DTO.SaleDTO;
 import com.kx.store.entities.Client;
 import com.kx.store.entities.Sale;
 import com.kx.store.repositories.ClientRepository;
 import com.kx.store.repositories.SaleRepository;
+import com.kx.store.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class SaleService {

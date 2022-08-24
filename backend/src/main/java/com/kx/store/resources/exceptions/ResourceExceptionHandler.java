@@ -1,4 +1,4 @@
-package com.julioleal.Ds.catalog.resources.exceptions;
+package com.kx.store.resources.exceptions;
 
 import java.time.Instant;
 
@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.julioleal.Ds.catalog.services.exceptions.DataBaseException;
-import com.julioleal.Ds.catalog.services.exceptions.ResourceNotFoundException;
+import com.kx.store.services.exceptions.DataBaseException;
+import com.kx.store.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
