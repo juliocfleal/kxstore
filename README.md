@@ -6,5 +6,10 @@ Projeto desenvolvido usando:
 - Maven
 - SpringTests
 
+- Orientação a objetos
+- Principios REST
+- Camada de testes de integração
+
+
 Colecao do Postman para aceso (importe pelo Postman usando o link)
 https://www.getpostman.com/collections/654480c304699404d8fc
