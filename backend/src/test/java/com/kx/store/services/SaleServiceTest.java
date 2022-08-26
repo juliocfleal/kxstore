@@ -18,7 +18,6 @@ import com.kx.store.entities.Client;
 import com.kx.store.entities.Sale;
 import com.kx.store.repositories.ClientRepository;
 import com.kx.store.repositories.SaleRepository;
-import com.kx.store.services.exceptions.ResourceNotFoundException;
 
 @WebMvcTest(SpringExtension.class)
 public class SaleServiceTest {
