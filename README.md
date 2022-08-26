@@ -8,7 +8,10 @@ Projeto desenvolvido usando:
 
 - Orientação a objetos
 - Principios REST
-- Camada de testes de integração
+- Arquitetura em camadas
+- Uso de DTO
+- Testes de integração
+- Testes nas camadas de services e repository
 
 
 Colecao do Postman para aceso (importe pelo Postman usando o link)
